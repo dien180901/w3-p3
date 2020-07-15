@@ -1,7 +1,7 @@
 let newsList=[];
 let count=1;
 const callApi=async()=>{
-    let url=`https://newsapi.org/v2/everything?q=apple&from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542`
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542`
     let data=await fetch(url)
     let result = await data.json()
     newsList=result.articles
@@ -10,7 +10,7 @@ const callApi=async()=>{
 }
 const render=(list)=>{
 
-    let i=new Date();
+   console.log(list);
     let newsHTML=list.map(item=>{
         return `<div class="card card1" style="width: 18rem;">
         <img src="${item.urlToImage}" class="card-img-top" alt="...">
@@ -19,18 +19,20 @@ const render=(list)=>{
           <p class="card-text">${item.description}</p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">${Math.round((i-new Date(item.publishedAt))/3600/24/24)}days ago</li>
+        <li class="list-group-item">${moment(item.publishedAt).fromNow()}</li>
           <li class="list-group-item">${item.source.name}</li>
           <li class="list-group-item">${item.author}</li>
         </ul>
        
       </div>`;
     }).join("");
+    console.log(newsHTML);
+
     document.getElementById("newsListArea").innerHTML=newsHTML;
 }
 const more=async()=>{
     count++;
-    let url=`https://newsapi.org/v2/everything?q=apple&from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542&pageSize=18&page=${count}`
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542&pageSize=18&page=${count}`
 //    url += `&q=${input}`
    
    
@@ -47,9 +49,10 @@ const more=async()=>{
 let searchList;
 const search=async()=>
 {
-    let input=document.getElementById("input").value;
-    let url=`https://newsapi.org/v2/everything?from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542&q=${input}`
-    
+    let a=document.getElementById("input");
+    let input=a.value;
+    console.log(input);
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542&q=${input}`
     let data=await fetch(url)
     let result = await data.json()
     searchList=result.articles;
@@ -57,8 +60,8 @@ const search=async()=>
 }
 const sportClick=async()=>
 {
-    let input=`sport`;
-    let url=`https://newsapi.org/v2/everything?from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542&q=${input}`
+    let input=`business`;
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542&category=${input}`
     
     let data=await fetch(url)
     let result = await data.json()
@@ -67,8 +70,8 @@ const sportClick=async()=>
 }
 const politicalClick=async()=>
 {
-    let input=`political`;
-    let url=`https://newsapi.org/v2/everything?from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542&q=${input}`
+    let input=`entertainment`;
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542&category=${input}`
     
     let data=await fetch(url)
     let result = await data.json()
@@ -77,8 +80,8 @@ const politicalClick=async()=>
 }
 const educationClick=async()=>
 {
-    let input=`education`;
-    let url=`https://newsapi.org/v2/everything?from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542&q=${input}`
+    let input=`general`;
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542&category=${input}`
     
     let data=await fetch(url)
     let result = await data.json()
@@ -87,8 +90,8 @@ const educationClick=async()=>
 }
 const internetClick=async()=>
 {
-    let input=`internet`;
-    let url=`https://newsapi.org/v2/everything?from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542&q=${input}`
+    let input=`health`;
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542&category=${input}`
     
     let data=await fetch(url)
     let result = await data.json()
@@ -97,8 +100,8 @@ const internetClick=async()=>
 }
 const financeClick=async()=>
 {
-    let input=`finance`;
-    let url=`https://newsapi.org/v2/everything?from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542&q=${input}`
+    let input=`science`;
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542&category=${input}`
     
     let data=await fetch(url)
     let result = await data.json()
@@ -107,8 +110,8 @@ const financeClick=async()=>
 }
 const covidClick=async()=>
 {
-    let input=`covid`;
-    let url=`https://newsapi.org/v2/everything?from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542&q=${input}`
+    let input=`sports`;
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542&category=${input}`
     
     let data=await fetch(url)
     let result = await data.json()
@@ -117,8 +120,8 @@ const covidClick=async()=>
 }
 const currencyClick=async()=>
 {
-    let input=`currency`;
-    let url=`https://newsapi.org/v2/everything?from=2020-07-14&to=2020-07-14&sortBy=popularity&apiKey=c4baf4822ae842e2b726b8cb0b587542&q=${input}`
+    let input=`technology`;
+    let url=`https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=c4baf4822ae842e2b726b8cb0b587542&category=${input}`
     
     let data=await fetch(url)
     let result = await data.json()
